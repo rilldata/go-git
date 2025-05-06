@@ -1217,14 +1217,14 @@ func (s *WorktreeSuite) TestResetMerge() {
 	err := w.Checkout(&CheckoutOptions{})
 	s.NoError(err)
 
-	err = w.Reset(&ResetOptions{Mode: MergeReset, Commit: commitA})
+	err = w.Reset(&ResetOptions{Mode: SoftReset, Commit: commitA})
 	s.NoError(err)
 
 	branch, err := w.r.Reference(plumbing.Master, false)
 	s.NoError(err)
 	s.Equal(commitA, branch.Hash())
 
-	f, err := fs.Create(".gitignore")
+	f, err := fs.Create("vendor/foo.go")
 	s.NoError(err)
 	_, err = f.Write([]byte("foo"))
 	s.NoError(err)
